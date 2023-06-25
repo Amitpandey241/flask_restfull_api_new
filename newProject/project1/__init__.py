@@ -1,1 +1,1 @@
-from .controller import insert,read,delete,updatee
+from .controller import insert_user,read,delete,updatee

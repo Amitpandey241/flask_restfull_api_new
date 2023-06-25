@@ -1,14 +1,25 @@
 from pymongo import MongoClient
 
 client = MongoClient()
-mydatebase = client.User
-mycollection = mydatebase.Users
+mydatebase = client.Users
+mycollection = mydatebase.user
 
 
 #insert query
-def insert(a):
-    query = mycollection.insert_one(a)
-
+def insert_user(a):
+    try:
+        query_to_insert_user_in_db = mycollection.insert_one(a)
+        """here query_to_insert_user_in_db.acknowledged gives
+           status which is boolean value.
+         """
+        if query_to_insert_user_in_db.acknowledged == True:
+            return True
+        else:
+            return False
+    except Exception as e:
+        return str(e)
+# test_data = {"username": "Anil", "password":"abc123"}
+# print(insert_user(test_data))
 
 #read query
 def read(a,b, **kwargs):

@@ -1,13 +1,13 @@
 from flask import Flask, request,jsonify,make_response,Blueprint
 from flask_restful import Resource,Api
 from pymongo import MongoClient
-from newProject.project1 import insert,read,delete,updatee
+from newProject.project1 import insert_user,read,delete,updatee
 from newProject import api, app
 # from newProject import make_celery
 # from newProject import celery
 from newProject import create_access_token,JWTManager,get_jwt_identity,jwt_required
 
-example = Blueprint("api",__name__)
+blueprint_resister = Blueprint("api",__name__)
 
 client = MongoClient()
 mydatebase = client.User
@@ -31,13 +31,19 @@ class UserRegeister(Resource):
             password = request.json.get("password", "NA")
             age = request.json.get("age", 0)
             val = {"username": username, "password": password, "age": age}
-            if username =="NA" or username=="" or password =="NA" or password==""  or age=="NA":
-                return jsonify({"message":"Username or Password or age is wrong"})
+            #if username == "NA" or username=="" or password =="NA" or password==""  or age=="NA":
+            if username in ["NA", ""] or password in ["NA", ""] or age in ["NA", ""]:
+                return make_response(jsonify({"message":"You have not entered an value!!"}))
             else:
-                insert1 = insert(val)
+                results = insert_user(val)
+                print(results)
                 # a = username
                 # reverse.delay(a)
-                return jsonify({"message":"Succefully register!"})
+                if results ==True:
+                    return make_response(jsonify({"message":"Succefully register!"}))
+                else:
+                    return make_response(jsonify({"message":"Please Try again later!"}),400)
+
 
 
         except Exception as e:

@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from flask_restful import Api
 from flask_jwt_extended import create_access_token, JWTManager, get_jwt_identity, jwt_required
 import secrets
-from celery import Celery
+# from celery import Celery
 
 
 # def make_celery(app):

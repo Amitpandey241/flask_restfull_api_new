@@ -9,10 +9,10 @@ from newProject import create_access_token,JWTManager,get_jwt_identity,jwt_requi
 
 blueprint_resister = Blueprint("api",__name__)
 
-client = MongoClient()
-mydatebase = client.User
-
-mycollection = mydatebase.Users
+# client = MongoClient()
+# mydatebase = client.User
+#
+# mycollection = mydatebase.Users
 
 
 # print(mycollection)
